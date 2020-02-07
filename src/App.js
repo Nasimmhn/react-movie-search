@@ -13,7 +13,7 @@ export const App = () => {
       .then((json) => setShows(json))
   }, [shows])
   return (
-    <div>
+    <div className="main-container">
       {shows.map((show) => (
         <Show key={show.show_id} show={show} />
 
