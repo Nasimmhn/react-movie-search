@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { Show } from 'components/Show'
+import React from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { ShowList } from 'components/ShowList'
+import { ShowDetail } from 'components/showDetail'
 
 export const App = () => {
-  const [shows, setShows] = useState([])
-  const page = 1
-  const year = ""
-  const listed_in = ""
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/shows?&year=${year}&page=${page}&listed_in=${listed_in}`)
-      .then((res) => res.json())
-      .then((json) => setShows(json))
-  }, [shows])
   return (
-    <div className="main-container">
-      {shows.map((show) => (
-        <Show key={show.show_id} show={show} />
 
-      ))}
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact>
+          <ShowList />
+        </Route>
+        <Route path="/shows/id/:showId">
+          <ShowDetail />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+
   )
 }
