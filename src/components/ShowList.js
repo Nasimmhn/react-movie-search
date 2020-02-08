@@ -4,20 +4,25 @@ import { Link } from "react-router-dom"
 export const ShowList = () => {
   const [shows, setShows] = useState([])
   const [page, setPage] = useState(1)
-  const [pagination, setPagination] = useState(3)
-  const [year, setYear] = useState("")
+  const [perPage, setPerPage] = useState(20)
+  const [pagination, setPagination] = useState(0)
+  const [found, setFound] = useState(0)
+  const [year, setYear] = useState(2010)
   const [listed_in, setListed_in] = useState("")
-  // const [page, setPage] = useState(1)
-
 
   useEffect(() => {
-    fetch(`http://localhost:8080/shows?&year=${year}&page=${page}&listed_in=${listed_in}`)
+    fetch(`http://localhost:8080/shows?&year=${year}&page=${page}&perPage=${perPage}&listed_in=${listed_in}`)
       .then((res) => res.json())
-      .then((json) => setShows(json))
-  }, [page])
+      .then((json) => {
+        setShows(json.shows)
+        setPagination(Math.ceil(json.total_shows / perPage))
+        setFound(json.total_shows)
+      })
+  }, [page, perPage, year, listed_in])
 
   return (
     <main className="main-container">
+      <h1> Found {found} shows </h1>
       {shows.map((show) => (
         // <Show key={show.show_id} show={show} />
 
@@ -30,33 +35,12 @@ export const ShowList = () => {
         </Link>
       ))}
 
-      <button onClick={() => setPage(1)}> 1 </button> <button onClick={() => setPage(2)}>> 2 </button>
+      {[...Array(pagination)].map((num, page) =>
+        <button key={page}
+          className="pageination-btn"
+          onClick={() => setPage(page + 1)}> {page + 1}
+        </button>
+      )}
     </main>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react'
-
-// export const Show = ({ show }) => {
-//   return (
-//     <div className="show-container">
-//       <h1>{show.title}</h1>
-//       <h3>{show.listed_in}</h3>
-//       <p>{show.release_year}</p>
-//     </div>
-//   )
-// }
