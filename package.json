@@ -1,5 +1,5 @@
 {
-  "name": "react-mongodb-movie-app",
+  "name": "react-movie-search",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

@@ -1,4 +1,4 @@
-# Movie app using MongoDB API
+# react-movie-search
 
 
 ## Under construction .....
