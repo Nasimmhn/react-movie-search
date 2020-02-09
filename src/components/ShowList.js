@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import "./showlist.css"
+import { API_URL } from '../App'
 
 export const ShowList = () => {
   // 
-  if (!(localStorage.getItem('page'))) { localStorage.setItem('page', 1) }
-  if (!(localStorage.getItem('perPage'))) { localStorage.setItem('perPage', 20) }
-  if (!(localStorage.getItem('year'))) { localStorage.setItem('year', "") }
-  if (!(localStorage.getItem('listed_in'))) { localStorage.setItem('listed_in', "") }
-  if (!(localStorage.getItem('title'))) { localStorage.setItem('title', "") }
+  if (!(sessionStorage.getItem('page'))) { sessionStorage.setItem('page', 1) }
+  if (!(sessionStorage.getItem('perPage'))) { sessionStorage.setItem('perPage', 20) }
+  if (!(sessionStorage.getItem('year'))) { sessionStorage.setItem('year', "") }
+  if (!(sessionStorage.getItem('listed_in'))) { sessionStorage.setItem('listed_in', "") }
+  if (!(sessionStorage.getItem('title'))) { sessionStorage.setItem('title', "") }
 
   const [shows, setShows] = useState([])
-  const [page, setPage] = useState(localStorage.getItem('page'))
-  const [perPage, setPerPage] = useState(localStorage.getItem('perPage'))
+  const [page, setPage] = useState(sessionStorage.getItem('page'))
+  const [perPage, setPerPage] = useState(sessionStorage.getItem('perPage'))
   const [pagination, setPagination] = useState(0)
   const [found, setFound] = useState(0)
-  const [year, setYear] = useState(localStorage.getItem('year'))
-  const [listed_in, setListed_in] = useState(localStorage.getItem('listed_in'))
-  const [title, setTitle] = useState(localStorage.getItem('title'))
+  const [year, setYear] = useState(sessionStorage.getItem('year'))
+  const [listed_in, setListed_in] = useState(sessionStorage.getItem('listed_in'))
+  const [title, setTitle] = useState(sessionStorage.getItem('title'))
 
-  localStorage.setItem('page', page)
-  localStorage.setItem('perPage', perPage)
-  localStorage.setItem('year', year)
-  localStorage.setItem('listed_in', listed_in)
-  localStorage.setItem('title', title)
+  sessionStorage.setItem('page', page)
+  sessionStorage.setItem('perPage', perPage)
+  sessionStorage.setItem('year', year)
+  sessionStorage.setItem('listed_in', listed_in)
+  sessionStorage.setItem('title', title)
 
 
   useEffect(() => {
-    fetch(`http://localhost:8080/shows?&year=${year}&page=${page}&perPage=${perPage}&listed_in=${listed_in}&title=${title}`)
+    fetch(`${API_URL}/shows?&year=${year}&page=${page}&perPage=${perPage}&listed_in=${listed_in}&title=${title}`)
       .then((res) => res.json())
       .then((json) => {
         setShows(json.shows)

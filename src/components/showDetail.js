@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import "./showdetail.css"
 
+import { API_URL } from '../App'
 
 export const ShowDetail = () => {
   const [show, setShow] = useState({})
   let { showId } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:8080/shows/id/${showId}/`)
+    fetch(`${API_URL}/shows/id/${showId}/`)
       .then((res) => res.json())
       .then((json) => {
         setShow(json)
-        console.log(json)
       })
   }, [showId])
 
