@@ -3,14 +3,28 @@ import { Link } from "react-router-dom"
 import "./showlist.css"
 
 export const ShowList = () => {
+  // 
+  if (!(localStorage.getItem('page'))) { localStorage.setItem('page', 1) }
+  if (!(localStorage.getItem('perPage'))) { localStorage.setItem('perPage', 20) }
+  if (!(localStorage.getItem('year'))) { localStorage.setItem('year', "") }
+  if (!(localStorage.getItem('listed_in'))) { localStorage.setItem('listed_in', "") }
+  if (!(localStorage.getItem('title'))) { localStorage.setItem('title', "") }
+
   const [shows, setShows] = useState([])
-  const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(20)
+  const [page, setPage] = useState(localStorage.getItem('page'))
+  const [perPage, setPerPage] = useState(localStorage.getItem('perPage'))
   const [pagination, setPagination] = useState(0)
   const [found, setFound] = useState(0)
-  const [year, setYear] = useState("")
-  const [listed_in, setListed_in] = useState("")
-  const [title, setTitle] = useState("")
+  const [year, setYear] = useState(localStorage.getItem('year'))
+  const [listed_in, setListed_in] = useState(localStorage.getItem('listed_in'))
+  const [title, setTitle] = useState(localStorage.getItem('title'))
+
+  localStorage.setItem('page', page)
+  localStorage.setItem('perPage', perPage)
+  localStorage.setItem('year', year)
+  localStorage.setItem('listed_in', listed_in)
+  localStorage.setItem('title', title)
+
 
   useEffect(() => {
     fetch(`http://localhost:8080/shows?&year=${year}&page=${page}&perPage=${perPage}&listed_in=${listed_in}&title=${title}`)
@@ -29,13 +43,13 @@ export const ShowList = () => {
           <div className="search-box">
             <div>
               <label htmlFor="search">Title:
-                <input name="search" type="text" />
+                <input name="search" type="text" defaultValue={title} />
               </label>
               <input type="submit" value="Search" onClick={(e) => { setTitle(e.target.previousSibling.children[0].value); setPage(1) }} />
             </div>
             <div>
               <label htmlFor="year">Year:
-                <select name="year" onChange={(e) => { setYear(e.target.value); setPage(1) }}>
+                <select name="year" onChange={(e) => { setYear(e.target.value); setPage(1) }} value={year}>
                   <option defaultValue value="">ALL</option>
                   <option value="2020">2020</option>
                   <option value="2019">2019</option>
@@ -56,7 +70,7 @@ export const ShowList = () => {
 
             <div>
               <label htmlFor="genre">Genre:
-                <select name="genre" onChange={(e) => { setListed_in(e.target.value); setPage(1) }}>
+                <select name="genre" onChange={(e) => { setListed_in(e.target.value); setPage(1) }} value={listed_in}>
                   <option defaultValue value="">ALL</option>
                   <option value="action|adventure">Action & Adventure</option>
                   <option value="comedies|stand-up">Comedy</option>
@@ -70,11 +84,10 @@ export const ShowList = () => {
 
             <div>
               <label htmlFor="perPage">results per page:
-                <select name="perPage" onChange={(e) => { setPerPage(e.target.value); setPage(1) }}>
-                  <option defaultValue value="20">20</option>
+                <select name="perPage" onChange={(e) => { setPerPage(e.target.value); setPage(1) }} value={perPage}>
                   <option value="100">100</option>
+                  <option defaultValue value="20">20</option>
                   <option value="10">10</option>
-
                   <option value="5">5</option>
                 </select>
               </label>
