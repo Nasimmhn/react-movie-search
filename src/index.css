@@ -7,6 +7,8 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #222831;
+  color: #eeeeee;
+  height: 100vh;
 }
 
 code {
@@ -17,10 +19,7 @@ h1 {
   color: #00adb5;
 }
 
-.show-container {
-  color: #eeeeee;
-  border: 1px solid #eeeeee;
-  margin: 10px;
-  padding-left: 10px;
-  background-color: #393e46;
+#root {
+  box-sizing: border-box;
+  height: 100%;
 }

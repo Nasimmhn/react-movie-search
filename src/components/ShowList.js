@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
+import "./showlist.css"
 
 export const ShowList = () => {
   const [shows, setShows] = useState([])
@@ -7,7 +8,7 @@ export const ShowList = () => {
   const [perPage, setPerPage] = useState(20)
   const [pagination, setPagination] = useState(0)
   const [found, setFound] = useState(0)
-  const [year, setYear] = useState(2010)
+  const [year, setYear] = useState("")
   const [listed_in, setListed_in] = useState("")
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export const ShowList = () => {
           <div className="show-container">
             <h1>{show.title}</h1>
             <h3>{show.listed_in}</h3>
-            <p>{show.release_year}</p>
+            <p>Released: {show.release_year}</p>
           </div>
         </Link>
       ))}
