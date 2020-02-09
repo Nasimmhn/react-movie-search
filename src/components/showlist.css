@@ -1,7 +1,58 @@
+nav {
+  background-color: #393e46;
+  height: 200px;
+  border-bottom: 1px solid #eeeeee;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .show-container {
   color: #eeeeee;
   border: 1px solid #eeeeee;
+  margin: 10px 0px;
+  padding: 10px;
+  background-color: #393e46;
+}
+
+.show-container:hover {
+  background-color: #00adb5;
+}
+
+.show-container:hover h1 {
+  color: #eeeeee;
+}
+
+.found {
+  font-size: 20px;
+  color: #00adb5;
   margin: 10px;
   padding-left: 10px;
-  background-color: #393e46;
+  text-align: center;
+}
+
+.pagination-container {
+  max-width: 90%;
+}
+
+.pagination-btn {
+  color: #00adb5;
+  font-size: 20px;
+  background-color: transparent;
+  margin: 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.pagination-btn:focus, .pagination-btn:hover {
+  font-weight: bolder;
+  background-color: #00adb5;
+  color: #eeeeee;
+}
+
+.search-box input, .search-box select {
+  height: auto;
+  font-size: 20px;
 }

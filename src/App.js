@@ -15,7 +15,9 @@ export const App = () => {
         <Route path="/shows/id/:showId">
           <ShowDetail />
         </Route>
+
       </Switch>
+      <footer> ©2020 Nasim Mahzoun </footer>
     </BrowserRouter>
 
   )
