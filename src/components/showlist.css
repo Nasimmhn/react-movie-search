@@ -9,6 +9,37 @@ nav {
   align-items: center;
 }
 
+.search-box {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-search-wrapper {
+  width: 80%;
+}
+
+input[type=text] {
+  padding: 10px;
+  width: 70%;
+}
+
+input[type=submit] {
+  padding: 10px;
+}
+
+.search-box>div {
+  padding: 10px;
+}
+
+.search-box input, .search-box select {
+  height: auto;
+  font-size: 20px;
+}
+
 .loading-wrapper {
   height: 30vh;
   display: flex;
@@ -57,9 +88,4 @@ nav {
   font-weight: bolder;
   background-color: #00adb5;
   color: #eeeeee;
-}
-
-.search-box input, .search-box select {
-  height: auto;
-  font-size: 20px;
 }
