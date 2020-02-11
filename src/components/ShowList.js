@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
+import Loader from 'react-loader-spinner'
 import "./showlist.css"
 import { API_URL } from '../App'
 
@@ -11,6 +12,8 @@ export const ShowList = () => {
   if (!(sessionStorage.getItem('listed_in'))) { sessionStorage.setItem('listed_in', "") }
   if (!(sessionStorage.getItem('title'))) { sessionStorage.setItem('title', "") }
 
+
+  const [loading, setLoading] = useState(true)
   const [shows, setShows] = useState([])
   const [page, setPage] = useState(sessionStorage.getItem('page'))
   const [perPage, setPerPage] = useState(sessionStorage.getItem('perPage'))
@@ -33,6 +36,7 @@ export const ShowList = () => {
       .then((json) => {
         setShows(json.shows)
         setPagination(Math.ceil(json.total_shows / perPage))
+        setLoading(false)
         setFound(json.total_shows)
       })
   }, [page, perPage, year, listed_in, title])
@@ -101,6 +105,11 @@ export const ShowList = () => {
 
 
       <main className="main-container">
+        {loading &&
+          <div className="loading-wrapper">
+            <Loader type="ThreeDots" color="#f2f2f2" height={80} width={80} />
+          </div>
+        }
         <div className="found"> {found} found </div>
         {shows.map((show) => (
           // <Show key={show.show_id} show={show} />
