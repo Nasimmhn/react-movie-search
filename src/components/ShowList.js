@@ -5,7 +5,7 @@ import "./showlist.css"
 import { API_URL } from '../App'
 
 export const ShowList = () => {
-  // 
+
   if (!(sessionStorage.getItem('page'))) { sessionStorage.setItem('page', 1) }
   if (!(sessionStorage.getItem('perPage'))) { sessionStorage.setItem('perPage', 20) }
   if (!(sessionStorage.getItem('year'))) { sessionStorage.setItem('year', "") }
@@ -47,7 +47,7 @@ export const ShowList = () => {
         <nav>
           <div className="search-box">
             <div className="title-search-wrapper">
-              <label htmlFor="search">
+              <label htmlFor="search" className="text-input-label">
                 <input placeholder="Titles" name="search" type="text" defaultValue={title} />
               </label>
               <input type="submit" value="Search" onClick={(e) => { setTitle(e.target.previousSibling.children[0].value); setPage(1) }} />
