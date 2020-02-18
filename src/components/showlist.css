@@ -58,9 +58,21 @@ input[type=submit]:hover {
 
 .dropdowns-container {
   width: 80%;
+  height: 80px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.dropdown-title {
+  color: aqua;
+  font-size: 20px;
 }
 
 .search-box input, .search-box select {
@@ -91,10 +103,18 @@ input[type=submit]:hover {
   color: #eeeeee;
 }
 
+.loading-message {
+  font-size: 30px;
+  color: #00adb5;
+  margin: 10px;
+  padding-left: 10px;
+  text-align: center;
+}
+
 .found {
   font-size: 20px;
   color: #00adb5;
-  margin: 10px;
+  margin: 20px 0 20px 0;
   padding-left: 10px;
   text-align: center;
 }

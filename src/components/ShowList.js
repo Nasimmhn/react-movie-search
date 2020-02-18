@@ -14,6 +14,7 @@ export const ShowList = () => {
 
 
   const [loading, setLoading] = useState(true)
+  const [loadingText, setLoadingText] = useState('')
   const [shows, setShows] = useState([])
   const [page, setPage] = useState(sessionStorage.getItem('page'))
   const [perPage, setPerPage] = useState(sessionStorage.getItem('perPage'))
@@ -36,6 +37,7 @@ export const ShowList = () => {
       .then((json) => {
         setShows(json.shows)
         setPagination(Math.ceil(json.total_shows / perPage))
+        setLoadingText(true)
         setLoading(false)
         setFound(json.total_shows)
       })
@@ -53,52 +55,44 @@ export const ShowList = () => {
               <input type="submit" value="Search" onClick={(e) => { setTitle(e.target.previousSibling.children[0].value); setPage(1) }} />
             </div>
             <div className="dropdowns-container">
-              <div>
-                <label htmlFor="year">Year:
+
+              <label htmlFor="year" className="dropdown-wrapper"><span className="dropdown-title">Year</span>
                 <select name="year" onChange={(e) => { setYear(e.target.value); setPage(1) }} value={year}>
-                    <option defaultValue value="">ALL</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                    <option value="2014">2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
-                    <option value="2011">2011</option>
-                    <option value="2010">2010</option>
-                    <option value="2009">2009</option>
-                    <option value="2009">2008</option>
-                  </select>
-                </label>
-              </div>
-
-              <div>
-                <label htmlFor="genre">Genre:
+                  <option defaultValue value="">ALL</option>
+                  <option value="2020">2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
+                  <option value="2009">2009</option>
+                  <option value="2009">2008</option>
+                </select>
+              </label>
+              <label htmlFor="genre" className="dropdown-wrapper"><span className="dropdown-title">Genre</span>
                 <select name="genre" onChange={(e) => { setListed_in(e.target.value); setPage(1) }} value={listed_in}>
-                    <option defaultValue value="">ALL</option>
-                    <option value="action|adventure">Action & Adventure</option>
-                    <option value="comedies|stand-up">Comedy</option>
-                    <option value="dramas">Drama</option>
-                    <option value="docuseries|documentaries">Documentary</option>
-                    <option value="sci-fi|fantasy">Sci-Fi & Fantasy</option>
-                    <option value="thrillers">Thriller</option>
-                  </select>
-                </label>
-              </div>
-
-              <div>
-                <label htmlFor="perPage">results per page:
+                  <option defaultValue value="">ALL</option>
+                  <option value="action|adventure">Action & Adventure</option>
+                  <option value="comedies|stand-up">Comedy</option>
+                  <option value="dramas">Drama</option>
+                  <option value="docuseries|documentaries">Documentary</option>
+                  <option value="sci-fi|fantasy">Sci-Fi & Fantasy</option>
+                  <option value="thrillers">Thriller</option>
+                </select>
+              </label>
+              <label htmlFor="perPage" className="dropdown-wrapper"><span className="dropdown-title">Results per page</span>
                 <select name="perPage" onChange={(e) => { setPerPage(e.target.value); setPage(1) }} value={perPage}>
-                    <option value="100">100</option>
-                    <option defaultValue value="20">20</option>
-                    <option value="10">10</option>
-                    <option value="5">5</option>
-                  </select>
-                </label>
-              </div>
-
+                  <option value="100">100</option>
+                  <option defaultValue value="20">20</option>
+                  <option value="10">10</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
             </div>
           </div>
         </nav>
@@ -106,12 +100,15 @@ export const ShowList = () => {
 
 
       <main className="main-container">
+
         {loading &&
           <div className="loading-wrapper">
             <Loader type="ThreeDots" color="#f2f2f2" height={80} width={80} />
           </div>
         }
-        <div className="found"> {found} found </div>
+
+        {!loadingText && <div className="loading-message"> {loadingText} It might take some seconds</div>}
+        {loadingText && <div className="found"> {found} Shows Found </div>}
         {shows.map((show) => (
           // <Show key={show.show_id} show={show} />
 
