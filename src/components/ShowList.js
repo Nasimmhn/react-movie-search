@@ -30,13 +30,39 @@ export const ShowList = () => {
   sessionStorage.setItem('listed_in', listed_in)
   sessionStorage.setItem('title', title)
 
+  // let pageButtonArray = [...Array(pagination)]
+  let pageButtonArray = Array.from(Array(pagination).keys())
+
+
+  const handlePageButtons = (page) => {
+    let start = Number(page) - 4
+    let end = Number(page) + 5
+
+    if (start < 1) {
+      end = end - start
+      start = 0
+    }
+    if (end > pagination) {
+      start = pagination - 9
+      end = pagination
+    }
+    return [start, end]
+  }
+
+  // if more than 10 pages
+  if (pagination > 10) {
+    // function returning where slice should start and end
+    let [start, end] = handlePageButtons(page)
+    // slicing pageButtonArray
+    pageButtonArray = pageButtonArray.slice(start, end)
+  }
 
   useEffect(() => {
     fetch(`${API_URL}/shows?&year=${year}&page=${page}&perPage=${perPage}&listed_in=${listed_in}&title=${title}`)
       .then((res) => res.json())
       .then((json) => {
         setShows(json.shows)
-        setPagination(Math.ceil(json.total_shows / perPage))
+        setPagination(Math.ceil(Number(json.total_shows) / Number(perPage)))
         setLoadingText(true)
         setLoading(false)
         setFound(json.total_shows)
@@ -123,7 +149,7 @@ export const ShowList = () => {
 
       </main>
       <div className="pagination-container">
-        {[...Array(pagination)].map((num, page) =>
+        {pageButtonArray.map((page) =>
           <button key={page}
             className="pagination-btn"
             onClick={() => setPage(page + 1)}> {page + 1}
