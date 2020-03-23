@@ -2,7 +2,6 @@
 
 This is the frontend part of a backend project of mine: https://github.com/Nasimmhn/project-mongo-api. 
 
-
 ## Technologies used 💻
 
 * JavaScript ES6
